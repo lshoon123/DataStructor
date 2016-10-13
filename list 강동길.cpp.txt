@@ -1,0 +1,186 @@
+#include <iostream>
+using namespace std;
+
+//---- Node 클래스
+class Node
+{
+private:
+   int    nNB;
+   Node* pNext;
+public:
+   int getNB(void) { return nNB; }
+   int getNext_NB(void)
+   {
+      int temp =  pNext->getNB();
+      
+      if (temp == 0)
+         return -1;
+
+      else
+         return temp;
+      
+   }
+   Node *getNext(void) { return pNext; }
+   void setNB(int n) { nNB = n; }
+   void setNext(Node* next) { pNext = next; }
+};
+
+
+//---- LinkedList클래스
+class LinkedList
+{
+private:
+   Node* pHead;
+public:
+   LinkedList();
+   ~LinkedList();
+   void Insert(int data);
+   //void Sort();
+   int Search(int);
+   void Swap();
+   void Delete(int);
+   void Print();
+
+};
+// 생성자
+LinkedList::LinkedList() : pHead(NULL){   }
+// 소멸자
+LinkedList::~LinkedList(){     }
+
+//검색부분
+int LinkedList::Search(int number)
+{
+   int place = 1;
+   Node *cur = pHead;
+   while (1)
+   {
+      if (cur->getNB() == number)
+      {
+         return place;
+      }
+
+      else
+      {
+         cur = cur->getNext();
+         
+         if (cur == NULL){
+            return -5;
+         }
+         place++;
+      }
+   }
+}
+
+
+
+void LinkedList::Swap()
+{
+   int n1, n2,count = 1;
+   Node *cur1, *cur2, *cpy1,*cpy2;
+
+   cout << "현재 데이터 : ";
+   Print();
+   cout << "Swap을 원하는 위치 번호를 입력하세요." << endl;
+   cin >> n1 >> n2;
+
+   cur1 = pHead;
+
+   while (1)
+   {
+      if (n1 == count) // n1이 1이 들어왔을 때.
+      {
+         cpy1 = cur1;
+         cur2 = cpy1;
+         
+         while (1)
+         {
+            if (n2 == count-1)
+            {
+               cpy2 = cur2;
+
+
+            }
+
+            else{
+               count++;
+               cur2 = cur2->getNext();
+            }
+
+
+         }
+      }
+
+      else{
+         count++;
+         cur1 = cur1->getNext();
+      }
+   }
+
+}
+
+// 입력부분
+void LinkedList::Insert(int data)
+{
+   Node *newnode, *cur;
+   newnode = new Node;
+   newnode->setNB(data);
+
+   newnode->setNext(NULL);
+
+   if (!pHead)
+      pHead = newnode;
+
+   else
+   {
+      cur = pHead;
+      while (cur->getNext() != NULL)
+         cur = cur->getNext();
+
+      cur->setNext(newnode);
+   }
+
+}
+
+void LinkedList::Print()
+{
+   Node *cur;
+   int i = 1;
+   cur = pHead;
+   while (cur != NULL)
+   {
+      cout <<"["<<i<<"]번 째"<<"-->"<< cur->getNB()<<"  ";
+      cur = cur->getNext();
+      i++;
+   }
+   cout << endl; 
+   i = 1;
+}
+
+void LinkedList::Delete(int num)
+{
+   Node *cur,*finder;
+   int time = 0;
+   cur = pHead;
+
+   while (cur != NULL)
+   {
+      if (num == cur->getNB() && time ==0){
+         pHead = cur->getNext();
+         cout << "삭제완료!" << endl;
+         break;
+      }
+   
+      else
+      {
+         time++;
+         finder = cur->getNext();
+         if (finder->getNB() == num){
+            cur->setNext(finder->getNext());
+            break;
+         }
+
+         else
+            cur = cur->getNext();
+      }
+   }
+}

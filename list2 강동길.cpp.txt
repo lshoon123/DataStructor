@@ -1,0 +1,78 @@
+#include "LinkedList.h"
+int main()
+{
+   LinkedList Node;
+   int flag = 0, number, checker;
+
+   while (1)
+   {
+      cout << "LinkedList메뉴" << endl;
+      cout << "1.삽입" << endl;
+      cout << "2.탐색" << endl;
+      cout << "3.출력" << endl;
+      cout << "4.삭제" << endl;
+      cout << "5.종료" << endl;
+      cin >> flag;
+
+      switch (flag){
+      case 1:
+      {
+         system("cls");
+         cout << "삽입 할 문자열을 입력하세요." << endl;
+         cin >> number;
+         Node.Insert(number);
+         break;
+      }
+
+      case 2:
+      {
+         system("cls");
+         cout << "탐색 할 문자열을 입력하세요." << endl;
+         cin >> number;
+         checker = Node.Search(number);
+
+         if (checker == -5){
+            cout << "해당 문자열은 없습니다." << endl;
+         }
+
+         else{
+            cout << "찾는 문자열은 " << checker << "번 째 있습니다." << endl;
+         }
+
+         break;
+
+      }
+
+      case 3:
+      {
+         system("cls");
+         cout << "모든 데이터를 출력합니다." << endl;
+         Node.Print();
+         break;
+      }
+
+      case 4:
+      {
+         system("cls");
+         cout << "현재 데이터" << endl;
+         Node.Print();
+         cout << "삭제를 원하는 숫자를 입력하세요" << endl;
+         cin >> number;
+
+         Node.Delete(number);
+         break;
+
+      }
+
+
+      case 5:
+      {
+         cout << "종료합니다" << endl;
+         return 0;
+      }
+
+
+      }
+   }
+   return 0;
+}
